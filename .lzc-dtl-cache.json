@@ -1,0 +1,54 @@
+{
+  "name": "BitComet",
+  "package": "cloud.lazycat.app.bitcomet",
+  "description": "BitComet",
+  "homepage": "https://www.bitcomet.com/index.htm",
+  "author": "czyt",
+  "app_features": [
+    "background_task",
+    "usb_accel",
+    "file_handler"
+  ],
+  "subdomain": "bitcomet",
+  "version": "0.0.1",
+  "mime_types": [
+    "application/x-magnet",
+    "application/x-bittorrent"
+  ],
+  "open_action": "/open?file=%u",
+  "iconPath": "BitComet.png",
+  "composePath": "docker-compose.yaml",
+  "unsupported_platforms": [
+    "ios",
+    "android"
+  ],
+  "lastRouteType": "from_compose",
+  "port_mappings": {
+    "sandbox_5900_5900": {
+      "use": true,
+      "type": "port",
+      "protocol": "tcp"
+    },
+    "sandbox_6080_80": {
+      "use": true,
+      "type": "http",
+      "path": "/",
+      "targetPath": "/"
+    },
+    "sandbox_6082_6082": {
+      "use": true,
+      "type": "port",
+      "protocol": "udp"
+    }
+  },
+  "image_wxhere_bitcomet_latest": {
+    "originalImage": "wxhere/bitcomet:latest",
+    "pushTarget": "lazycat",
+    "newImageName": "registry.lazycat.cloud/czyt/wxhere/bitcomet:88626d4f97dbe985",
+    "timestamp": "2025-02-11T09:13:44.583Z"
+  },
+  "sandbox_volume_/home/sandbox/.config/BitComet_action": "emptyDir",
+  "sandbox_volume_/home/sandbox/.config/BitComet_location": "app_data",
+  "sandbox_volume_/home/sandbox/Downloads_action": "emptyDir",
+  "sandbox_volume_/home/sandbox/Downloads_location": "app_data"
+}

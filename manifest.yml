@@ -1,0 +1,46 @@
+lzc-sdk-version: "0.1"
+name: BitComet
+package: cloud.lazycat.app.bitcomet
+version: 0.0.1
+description: BitComet
+homepage: https://www.bitcomet.com/index.htm
+author: czyt
+application:
+  subdomain: bitcomet
+  background_task: true
+  multi_instance: false
+  gpu_accel: false
+  kvm_accel: false
+  usb_accel: true
+  file_handler:
+    mime:
+      - application/x-magnet
+      - application/x-bittorrent
+    actions:
+      open: /open?file=%u
+  routes:
+    - /=http://sandbox.cloud.lazycat.app.bitcomet.lzcapp:80/
+  ingress:
+    - protocol: tcp
+      port: 5900
+      service: sandbox
+    - protocol: tcp
+      port: 6082
+      service: sandbox
+    - protocol: udp
+      port: 6082
+      service: sandbox
+services:
+  sandbox:
+    image: registry.lazycat.cloud/czyt/wxhere/bitcomet:88626d4f97dbe985
+    environment:
+      - VNC_PASSWORD=123456
+      - HTTP_PASSWORD=123456
+      - USER=sandbox
+      - PASSWORD=123456
+    binds:
+      - /lzcapp/var/BitComet:/home/sandbox/.config/BitComet
+      - /lzcapp/var/Downloads:/home/sandbox/Downloads
+unsupported_platforms:
+  - ios
+  - android
