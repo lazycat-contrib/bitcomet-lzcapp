@@ -8,6 +8,7 @@ author: bitcomet
 application:
     subdomain: bitcomet
     background_task: true
+    multi_instance: true
     file_handler:
         mime:
             - application/x-magnet
@@ -36,4 +37,8 @@ services:
             - WEBUI_PASSWORD={{.U.admin_password }}
         binds:
             - /lzcapp/var/BitComet:/root/.config/BitComet
-            - /lzcapp/var/Downloads:/root/Downloads
+            - /lzcapp/document/下载:/root/Downloads
+
+ext_config:
+    enable_document_access: true
+    enable_media_access: true
