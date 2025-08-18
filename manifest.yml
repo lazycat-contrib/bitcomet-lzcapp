@@ -1,46 +1,39 @@
-lzc-sdk-version: "0.1"
 name: BitComet
 package: cloud.lazycat.app.bitcomet
-version: 0.0.1
-description: BitComet
+version: 2.15.0
+min_os_version: 1.3.8
+description: BitComet(比特彗星)是一款免费的BT/HTTP/FTP下载软件！功能强大速度快，操作简单的BT下载软件，BT资源下载利器！
 homepage: https://www.bitcomet.com/index.htm
-author: czyt
+author: bitcomet
 application:
-  subdomain: bitcomet
-  background_task: true
-  multi_instance: false
-  gpu_accel: false
-  kvm_accel: false
-  usb_accel: true
-  file_handler:
-    mime:
-      - application/x-magnet
-      - application/x-bittorrent
-    actions:
-      open: /open?file=%u
-  routes:
-    - /=http://sandbox.cloud.lazycat.app.bitcomet.lzcapp:80/
-  ingress:
-    - protocol: tcp
-      port: 5900
-      service: sandbox
-    - protocol: tcp
-      port: 6082
-      service: sandbox
-    - protocol: udp
-      port: 6082
-      service: sandbox
+    subdomain: bitcomet
+    background_task: true
+    file_handler:
+        mime:
+            - application/x-magnet
+            - application/x-bittorrent
+        actions:
+            open: /open?file=%u
+    public_path:
+        - /
+    routes:
+        - /=http://sandbox:8080/
+    ingress:
+        - protocol: udp
+          port: 6082
+          service: sandbox
+        - protocol: tcp
+          port: 6082
+          service: sandbox
 services:
-  sandbox:
-    image: registry.lazycat.cloud/czyt/wxhere/bitcomet:88626d4f97dbe985
-    environment:
-      - VNC_PASSWORD=123456
-      - HTTP_PASSWORD=123456
-      - USER=sandbox
-      - PASSWORD=123456
-    binds:
-      - /lzcapp/var/BitComet:/home/sandbox/.config/BitComet
-      - /lzcapp/var/Downloads:/home/sandbox/Downloads
-unsupported_platforms:
-  - ios
-  - android
+    sandbox:
+        # wxhere/bitcomet-webui:v2.15.0
+        image: registry.lazycat.cloud/czyt/wxhere/bitcomet-webui:129d36a128719deb
+        environment:
+            - BITCOMET_WEBUI_PORT=8080
+            - BITCOMET_BT_PORT=6082
+            - WEBUI_USERNAME={{ .U.admin_username }}
+            - WEBUI_PASSWORD={{.U.admin_password }}
+        binds:
+            - /lzcapp/var/BitComet:/root/.config/BitComet
+            - /lzcapp/var/Downloads:/root/Downloads
