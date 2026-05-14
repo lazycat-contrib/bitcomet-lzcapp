@@ -1,0 +1,39 @@
+application:
+  subdomain: bitcomet
+  background_task: true
+  multi_instance: true
+  file_handler:
+    mime:
+      - application/x-magnet
+      - application/x-bittorrent
+    actions:
+      open: /open?file=%u
+  public_path:
+    - /
+  upstreams:
+    - location: /
+      backend: http://sandbox:8080/
+  ingress:
+    - protocol: udp
+      port: 6082
+      service: sandbox
+    - protocol: tcp
+      port: 6082
+      service: sandbox
+
+services:
+  sandbox:
+    # wxhere/bitcomet-webui:v2.20.0
+    image: registry.lazycat.cloud/czyt/wxhere/bitcomet-webui:c65d3c65bfc97abf
+    environment:
+      - BITCOMET_WEBUI_PORT=8080
+      - BITCOMET_BT_PORT=6082
+      - WEBUI_USERNAME={{ .U.admin_username }}
+      - WEBUI_PASSWORD={{.U.admin_password }}
+    binds:
+      - /lzcapp/var/BitComet:/root/.config/BitComet
+      - /lzcapp/run/mnt/home/下载:/root/Downloads
+
+ext_config:
+  enable_document_access: true
+  enable_media_access: true
