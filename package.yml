@@ -1,11 +1,10 @@
 package: cloud.lazycat.app.bitcomet
-version: 2.20.0
+version: 2.21.2
 name: BitComet
 description: BitComet(比特彗星)是一款免费的BT/HTTP/FTP下载软件！功能强大速度快，操作简单的BT下载软件，BT资源下载利器！
 min_os_version: 1.5.0
 homepage: https://www.bitcomet.com/index.htm
 author: bitcomet
-
 locales:
   zh:
     name: "比特彗星"
@@ -13,7 +12,6 @@ locales:
   en:
     name: "BitComet"
     description: "BitComet is a free BitTorrent download client!BitComet is powerful, super-fast and easy-to-use."
-
 permissions:
   required:
     - net.internet

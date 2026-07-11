@@ -20,11 +20,11 @@ application:
     - protocol: tcp
       port: 6082
       service: sandbox
-
 services:
   sandbox:
     # wxhere/bitcomet-webui:v2.20.0
-    image: registry.lazycat.cloud/czyt/wxhere/bitcomet-webui:c65d3c65bfc97abf
+    # upstream: wxhere/bitcomet-webui:v2.21.2
+    image: registry.lazycat.cloud/czyt/wxhere/bitcomet-webui:927b2210e3a8dbf2
     environment:
       - BITCOMET_WEBUI_PORT=8080
       - BITCOMET_BT_PORT=6082
@@ -33,7 +33,6 @@ services:
     binds:
       - /lzcapp/var/BitComet:/root/.config/BitComet
       - /lzcapp/run/mnt/home/下载:/root/Downloads
-
 ext_config:
   enable_document_access: true
   enable_media_access: true
