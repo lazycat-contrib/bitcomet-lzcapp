@@ -23,8 +23,8 @@ application:
 services:
   sandbox:
     # wxhere/bitcomet-webui:v2.20.0
-    # upstream: wxhere/bitcomet-webui:v2.21.2
-    image: registry.lazycat.cloud/czyt/wxhere/bitcomet-webui:927b2210e3a8dbf2
+    # upstream: wxhere/bitcomet-webui:v2.22.0
+    image: registry.lazycat.cloud/czyt/wxhere/bitcomet-webui:ffabe8cf92594377
     environment:
       - BITCOMET_WEBUI_PORT=8080
       - BITCOMET_BT_PORT=6082
